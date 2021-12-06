@@ -1,0 +1,917 @@
+---
+title: "Definitions:"
+output: html_document
+site: 
+  distill::distill_website:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = '/Users/Serena/Desktop/Summer Research Documents/')
+
+# Learn more about creating websites with Distill at:
+# https://rstudio.github.io/distill/website.html
+
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, results='hide'}
+
+library(sp)
+library(rgeos)
+library(rgdal)
+library(leaflet)
+
+n <- read.csv("New Data/Cleaned All/Classify Data/Classify_all.csv", header = TRUE, as.is = TRUE)
+
+pitt <- readOGR("GIS/Pittsburgh ShapeFiles/Pitt_censustracts2/pitt_censustracts2.shp")
+par(mar = c(5,6,3,6)) #original margins 
+
+#merging
+pitt <- merge(pitt, n, by.y = "tract", by.x = "NAME")
+
+```
+
+```{r}
+############################################################################################
+
+tract.gentrifiable <- n$tract[which(n$gentrifiable==1)]
+
+#DEFINITION 1
+def1.neighborhoods <- n$neighborhood[which(n$def1.gentrifying==1)]
+tract.gentrifiable <- n$tract[which(n$gentrifiable==1)]
+def1.tract.gent <- n$tract[which(n$def1.gentrifying==1)]
+def1.tract.na <- n$tract[which(is.na(n$def1.gentrifying))]
+
+#DEFINITION 2 
+def2.neighborhoods <- n$neighborhood[which(n$def2.gentrifying==1)]
+def2.tract.gent <- n$tract[which(n$def2.gentrifying==1)]
+def2.tract.na <- n$tract[which(is.na(n$def2.gentrifying))]
+
+#DEFINITION 3
+def3.neighborhoods.both <- n$neighborhood[which(n$def3.gentrifying.both==1)]
+def3.neighborhoods.or <- n$neighborhood[which(n$def3.gentrifying.or==1)]
+
+def3.tract.gent.both <- n$tract[which(n$def3.gentrifying.both==1)]
+def3.tract.gent.or <- n$tract[which(n$def3.gentrifying.or==1)]
+
+def3.tract.na.both <- n$tract[which(is.na(n$def3.gentrifying.both))]
+def3.tract.na.or <- n$tract[which(is.na(n$def3.gentrifying.or))]
+
+#DEFINITION 4 - Increasing
+def4.neighborhoods.i <- n$neighborhood[which(n$def4.gentrifying==1)]
+def4.tract.gent.i <- n$tract[which(n$def4.gentrifying==1)]
+def4.tract.na.i <- n$tract[which(is.na(n$def4.gentrifying))]
+
+#DEFINITION 4 - Decreasing
+def4.neighborhoods.d <- n$neighborhood[which(n$def4.gentrifying2==1)]
+def4.tract.gent.d <- n$tract[which(n$def4.gentrifying2==1)]
+def4.tract.na.d <- n$tract[which(is.na(n$def4.gentrifying2))]
+
+#DEFINITION 5 - Increasing
+def5.neighborhoods.i <- n$neighborhood[which(n$def5.gentrifying==1)]
+def5.tract.gent.i <- n$tract[which(n$def5.gentrifying==1)]
+def5.tract.na.i <- n$tract[which(is.na(n$def5.gentrifying))]
+
+#DEFINITION 5 - Decreasing
+def5.neighborhoods.d <- n$neighborhood[which(n$def5.gentrifying2==1)]
+def5.tract.gent.d <- n$tract[which(n$def5.gentrifying2==1)]
+def5.tract.na.d <- n$tract[which(is.na(n$def5.gentrifying2))]
+
+#DEFINITION 6 - Increasing/Both
+def6.neighborhoods.i.both <- n$neighborhood[which(n$def6.gentrifying.both==1)]
+def6.tract.gent.i.both <- n$tract[which(n$def6.gentrifying.both==1)]
+def6.tract.na.i.both <- n$tract[which(is.na(n$def6.gentrifying.both))]
+
+#DEFINITION 6 - Decreasing/Both
+def6.neighborhoods.d.both <- n$neighborhood[which(n$def6.gentrifying2.both==1)]
+def6.tract.gent.d.both <- n$tract[which(n$def6.gentrifying2.both==1)]
+def6.tract.na.d.both <- n$tract[which(is.na(n$def6.gentrifying2.both))]
+
+#DEFINITION 6 - Increasing/Or
+def6.neighborhoods.i.or <- n$neighborhood[which(n$def6.gentrifying.or==1)]
+def6.tract.gent.i.or <- n$tract[which(n$def6.gentrifying.or==1)]
+def6.tract.na.i.or <- n$tract[which(is.na(n$def6.gentrifying.or))]
+
+#DEFINITION 6 - Decreasing/Or
+def6.neighborhoods.d.or <- n$neighborhood[which(n$def6.gentrifying2.or==1)]
+def6.tract.gent.d.or <- n$tract[which(n$def6.gentrifying2.or==1)]
+def6.tract.na.d.or <- n$tract[which(is.na(n$def6.gentrifying2.or))]
+
+#DEFINITION 7
+def7.neighborhoods <- n$neighborhood[which(n$def7.gentrifying==1)]
+def7.tract.gent <- n$tract[which(n$def7.gentrifying==1)]
+def7.tract.na <- n$tract[which(is.na(n$def7.gentrifying))]
+
+#DEFINITION 8
+def8.neighborhoods <- n$neighborhood[which(n$def8.gentrifying==1)]
+def8.tract.gent <- n$tract[which(n$def8.gentrifying==1)]
+def8.tract.na <- n$tract[which(is.na(n$def8.gentrifying))]
+
+#DEFINITION 9 - Both
+def9.neighborhoods.both <- n$neighborhood[which(n$def9.gentrifying.both==1)]
+def9.tract.gent.both <- n$tract[which(n$def9.gentrifying.both==1)]
+def9.tract.na.both <- n$tract[which(is.na(n$def9.gentrifying.both))]
+
+#DEFINITION 9 - Or
+def9.neighborhoods.or <- n$neighborhood[which(n$def9.gentrifying.or==1)]
+def9.tract.gent.or <- n$tract[which(n$def9.gentrifying.or==1)]
+def9.tract.na.or <- n$tract[which(is.na(n$def9.gentrifying.or))]
+
+#DEFINITION 10 - Increasing 
+def10.neighborhoods.i <- n$neighborhood[which(n$def10.gentrifying==1)]
+def10.tract.gent.i <- n$tract[which(n$def10.gentrifying==1)]
+def10.tract.na.i <- n$tract[which(is.na(n$def10.gentrifying))]
+
+#DEFINITION 10 - Decreasing  
+def10.neighborhoods.d <- n$neighborhood[which(n$def10.gentrifying2==1)]
+def10.tract.gent.d <- n$tract[which(n$def10.gentrifying2==1)]
+def10.tract.na.d <- n$tract[which(is.na(n$def10.gentrifying2))]
+
+#DEFINITION 11 - Increasing 
+def11.neighborhoods.i <- n$neighborhood[which(n$def11.gentrifying==1)]
+def11.tract.gent.i <- n$tract[which(n$def11.gentrifying==1)]
+def11.tract.na.i <- n$tract[which(is.na(n$def11.gentrifying))]
+
+#DEFINITION 11 - Decreasing 
+def11.neighborhoods.d <- n$neighborhood[which(n$def11.gentrifying2==1)]
+def11.tract.gent.d <- n$tract[which(n$def11.gentrifying2==1)]
+def11.tract.na.d <- n$tract[which(is.na(n$def11.gentrifying2))]
+
+#DEFINITION 12 - Increasing/Both
+def12.neighborhoods.i.both <- n$neighborhood[which(n$def12.gentrifying.both==1)]
+def12.tract.gent.i.both <- n$tract[which(n$def12.gentrifying.both==1)]
+def12.tract.na.i.both <- n$tract[which(is.na(n$def12.gentrifying.both))]
+
+#DEFINITION 12 - Decreasing/Both
+def12.neighborhoods.d.both <- n$neighborhood[which(n$def12.gentrifying2.both==1)]
+def12.tract.gent.d.both <- n$tract[which(n$def12.gentrifying2.both==1)]
+def12.tract.na.d.both <- n$tract[which(is.na(n$def12.gentrifying2.both))]
+
+#DEFINITION 12 - Increasing/Or
+def12.neighborhoods.i.or <- n$neighborhood[which(n$def12.gentrifying.or==1)]
+def12.tract.gent.i.or <- n$tract[which(n$def12.gentrifying.or==1)]
+def12.tract.na.i.or <- n$tract[which(is.na(n$def12.gentrifying.or))]
+
+#DEFINITION 12 - Decreasing/Or
+def12.neighborhoods.d.or <- n$neighborhood[which(n$def12.gentrifying2.or==1)]
+def12.tract.gent.d.or <- n$tract[which(n$def12.gentrifying2.or==1)]
+def12.tract.na.d.or <- n$tract[which(is.na(n$def12.gentrifying2.or))]
+
+############################################################################################### 
+
+#CREATING THE LISTS OF LISTS 
+#Fluid Definition 
+gentrifying.locations <- list(def1.tract.gent, def1.neighborhoods, 
+                              def2.tract.gent, def2.neighborhoods,
+                              def3.tract.gent.both, def3.neighborhoods.both, 
+                              def3.tract.gent.or, def3.neighborhoods.or,
+                              def4.tract.gent.i, def4.neighborhoods.i, 
+                              def4.tract.gent.d, def4.neighborhoods.d,
+                              def5.tract.gent.i, def5.neighborhoods.i, 
+                              def5.tract.gent.d, def5.neighborhoods.d,
+                              def6.tract.gent.i.both, def6.neighborhoods.i.both, 
+                              def6.tract.gent.d.both, def6.neighborhoods.d.both,
+                              def6.tract.gent.i.or, def6.neighborhoods.i.or, 
+                              def6.tract.gent.d.or, def6.neighborhoods.d.or,
+                              def7.tract.gent, def7.neighborhoods, 
+                              def8.tract.gent, def8.neighborhoods,
+                              def9.tract.gent.both, def9.neighborhoods.both, 
+                              def9.tract.gent.or, def9.neighborhoods.or, 
+                              def10.tract.gent.i, def10.neighborhoods.i, 
+                              def10.tract.gent.d, def10.neighborhoods.d,
+                              def11.tract.gent.i, def11.neighborhoods.i, 
+                              def11.tract.gent.d, def11.neighborhoods.d,
+                              def12.tract.gent.i.both, def12.neighborhoods.i.both, 
+                              def12.tract.gent.d.both, def12.neighborhoods.d.both,
+                              def12.tract.gent.i.or, def12.neighborhoods.i.or, 
+                              def12.tract.gent.d.or, def12.neighborhoods.d.or)
+
+names(gentrifying.locations) <- c("D1", "N1", 
+                                  "D2", "N2",
+                                  "D3 Both", "N3 Both", "D3 Or", "N3 Or",
+                                  "D4 Inc", "N4 Inc", "D4 Dec", "N4 Dec",
+                                  "D5 Inc", "N5 Inc", "D5 Dec", "N5 Dec",
+                                  "D6 Inc/Both", "N6 Inc/Both", "D6 Dec/Both", "N6 Dec/Both", 
+                                  "D6 Inc/Or", "N6 Inc/Or", "D6 Dec/Or", "N6 Dec/Or",
+                                  "D7", "N7", 
+                                  "D8", "N8",
+                                  "D9 Both", "N9 Both", "D9 Or", "N9 Or", 
+                                  "D10 Inc", "N10 Inc", "D10 Dec", "N10 Dec",
+                                  "D11 Inc", "N11 Inc", "D11 Dec", "N11 Dec", 
+                                  "D12 Inc/Both", "N12 Inc/Both", "D12 Dec/Both", "N12 Dec/Both", 
+                                  "D12 Inc/Or", "N12 Inc/Or", "D12 Dec/Or", "N12 Dec/Or")
+
+```
+
+# Definition 1
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Home Value > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+```{r, fig.height=6, fig.width=12}
+# Adding in the interactive maps
+my.col <- rep("slategrey", 137)
+my.col[pitt$def1.gentrifying == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def1.gentrifying == 1] <- "orange"
+def1.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 1",
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def1.int
+
+```
+    
+Gentrifying Tracts: 
+603, 809, 901, 903, 1011, 1113, 1115, 1915, 2107, 2406, 2509, 2614, 2703, 5623, 5632
+
+
+# Definition 2
+
+Variables: 
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+    
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def2.gentrifying == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def2.gentrifying == 1] <- "orange"
+def2.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 2",
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def2.int
+
+```
+
+Gentrifying Tracts:
+603, 809, 901, 903, 1011, 1114, 1115, 2107, 2406, 2509, 2609, 2901, 5630, 5632 
+
+        
+# Definition 3
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Home Value or Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def3.gentrifying == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def3.gentrifying == 1] <- "orange"
+def3.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 3", 
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def3.int
+
+```
+
+Gentrifying Tracts: 603, 809, 901, 903, 1011, 1115, 2107, 2406, 2509, 2609, 5632
+
+               
+# Definition 4
+    
+### Increasing 
+
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % proportion increase in Vacancy > citywide median % increase
+
+- % increase in median Home Value > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def4.gentrifying == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def4.gentrifying == 1] <- "orange"
+def4.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 4 - Increasing", 
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def4.int
+
+```
+
+Gentrifying Tracts: 901, 1011, 1113, 2107, 2614, 5632
+               
+
+### Decreasing  
+
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % proportion increase in Vacancy < citywide median % increase
+
+- % increase in median Home Value > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def4.gentrifying2 == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def4.gentrifying2 == 1] <- "orange"
+def4.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 4 - Decreasing", 
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def4.int
+
+```
+
+Gentrifying Tracts: 603, 809, 903, 1115, 1915, 2406, 2509, 2703, 562               
+
+
+# Definition 5
+
+### Increasing 
+
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % proportion increase in Vacancy > citywide median % increase
+
+- % increase in median Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def5.gentrifying == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def5.gentrifying == 1] <- "orange"
+def5.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 5 - Increasing", 
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def5.int
+
+```
+
+Gentrifying Tracts: 901, 1011, 2107, 2609, 5630, 5632
+               
+
+### Decreasing  
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % proportion increase in Vacancy < citywide median % increase
+
+- % increase in median Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def5.gentrifying2 == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def5.gentrifying2 == 1] <- "orange"
+def5.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 5 - Decreasing", 
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def5.int
+
+```
+         
+Gentrifying Tracts: 603, 809, 903, 1114, 1115, 2406, 2509, 2901      
+     
+
+# Definition 6
+
+### Increasing
+
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % proportion increase in Vacancy > citywide median % increase
+
+- % increase in median Home Value or Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def6.gentrifying == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def6.gentrifying == 1] <- "orange"
+def6.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 6 - Increasing", 
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def6.int
+
+```
+
+Gentrifying Tracts: 901, 1011, 2107, 2609, 5632
+
+
+### Decreasing
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % proportion increase in Vacancy < citywide median % increase
+
+- % increase in median Home Value or Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def6.gentrifying2 == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def6.gentrifying2 == 1] <- "orange"
+def6.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 6 - Decreasing", 
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def6.int
+
+```
+
+Gentrifying Tracts: 603, 809, 903, 1115, 2406, 2509
+
+
+# Definition 7
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income", 
+
+- % increase in median Household Income > citywide median % increase", 
+
+- % increase in median Home Value > citywide median % increase",
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def7.gentrifying == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def7.gentrifying == 1] <- "orange"
+def7.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 7", 
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def7.int
+
+```
+
+Gentrifying Tracts: 603, 809, 901, 903, 1011, 1113, 1115, 1915, 2107, 2406, 2614, 2703, 5632
+
+
+# Definition 8
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % increase in median Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def8.gentrifying == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def8.gentrifying == 1] <- "orange"
+def8.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 8", 
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def8.int
+
+```
+
+Gentrifying Tracts: 603, 809, 901, 903, 1011, 1114, 1115, 2107, 2406, 5630, 5632
+
+
+# Definition 9
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % increase in median Home Value or Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+    my.col[pitt$def9.gentrifying == 0] <- "skyblue"
+    my.col[pitt$gentrifiable == 1] <- "powderblue"
+    my.col[pitt$def9.gentrifying == 1] <- "orange"
+    def9.int <- leaflet(pitt) %>%
+      addPolygons(
+        label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+        labelOptions= labelOptions(direction = 'auto'),
+        weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+      ) %>%
+      addLegend(
+        title = "Definition 9", 
+        position = c("bottomleft"),
+        colors = c("orange", "skyblue", "powderblue", "slategrey"),
+        labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+      )
+    def9.int
+
+```
+
+Gentrifying Tracts: 603, 809, 901, 903, 1011, 1115, 2107, 2406, 5632
+
+
+# Definition 10
+
+### Increasing 
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % proportion increase in Vacancy > citywide median % increase
+
+- % increase in median Home Value > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def10.gentrifying == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def10.gentrifying == 1] <- "orange"
+def10.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 10 - Increasing", 
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def10.int
+
+```
+
+Gentrifying Tracts: 901, 1011, 1113, 2107, 2614, 5632
+
+
+### Decreasing 
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % proportion increase in Vacancy < citywide median % increase
+
+- % increase in median Home Value > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def10.gentrifying2 == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def10.gentrifying2 == 1] <- "orange"
+def10.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 10 - Decreasing", 
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def10.int
+
+```
+
+Gentrifying Tracts: 603, 809, 903, 1115, 1915, 2406, 2703
+
+
+# Definition 11
+
+### Increasing 
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % proportion increase in Vacancy > citywide median % increase
+
+- % increase in median Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def11.gentrifying == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def11.gentrifying == 1] <- "orange"
+def11.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 11 - Increasing", 
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def11.int
+
+```
+           
+Gentrifying Tracts: 901, 1011, 2107, 5630, 5632
+
+
+#### Decreasing 
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % proportion increase in Vacancy < citywide median % increase
+
+- % increase in median Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def11.gentrifying2 == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def11.gentrifying2 == 1] <- "orange"
+def11.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 11 - Decreasing", 
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def11.int
+
+```
+               
+Gentrifying Tracts: 603, 809, 903, 1114, 1115, 2406               
+               
+
+# Definition 12
+
+### Increasing 
+  
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % proportion increase in Vacancy > citywide median % increase
+               
+- % increase in median Home Value or Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def12.gentrifying == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def12.gentrifying == 1] <- "orange"
+def12.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 12 - Increasing", 
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def12.int
+
+```
+
+Gentrifying Tracts: 901, 1011, 2107, 5632
+              
+
+### Decreasing 
+  
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % proportion increase in Vacancy < citywide median % increase
+               
+- % increase in median Home Value or Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=12}
+
+my.col <- rep("slategrey", 137)
+my.col[pitt$def12.gentrifying2 == 0] <- "skyblue"
+my.col[pitt$gentrifiable == 1] <- "powderblue"
+my.col[pitt$def12.gentrifying2 == 1] <- "orange"
+def12.int <- leaflet(pitt) %>%
+  addPolygons(
+    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
+    labelOptions= labelOptions(direction = 'auto'),
+    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
+  ) %>%
+  addLegend(
+    title = "Definition 12 - Decreasing", 
+    position = c("bottomleft"),
+    colors = c("orange", "skyblue", "powderblue", "slategrey"),
+    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
+  )
+def12.int
+
+```
+
+Gentrifying Tracts: 603, 809, 903, 1115, 2406
+
+
+
+
+

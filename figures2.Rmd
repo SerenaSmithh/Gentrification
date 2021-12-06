@@ -1,0 +1,869 @@
+---
+title: "Definitions:"
+site: 
+  distill::distill_website:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = '/Users/Serena/Desktop/Summer Research Documents/')
+
+# Learn more about creating websites with Distill at:
+# https://rstudio.github.io/distill/website.html
+
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE, results='hide'}
+
+library(sp)
+library(rgeos)
+library(rgdal)
+library(leaflet)
+
+n <- read.csv("New Data/Cleaned All/Classify Data/Classify Neighborhoods Fluid2.csv", header = TRUE, as.is = TRUE)
+
+pitt <- readOGR("GIS/Pittsburgh ShapeFiles/Pitt_censustracts2/pitt_censustracts2.shp")
+par(mar = c(5,6,3,6)) #original margins 
+
+#merging
+pitt <- merge(pitt, n, by.y = "tract", by.x = "NAME")
+
+```
+
+```{r}
+############################################################################################
+
+tract.gentrifiable <- n$tract[which(n$gentrifiable==1)]
+
+#DEFINITION 1
+def1.neighborhoods <- n$neighborhood[which(n$def1.gentrifying==1)]
+tract.gentrifiable <- n$tract[which(n$gentrifiable==1)]
+def1.tract.gent <- n$tract[which(n$def1.gentrifying==1)]
+def1.tract.na <- n$tract[which(is.na(n$def1.gentrifying))]
+
+#DEFINITION 2 
+def2.neighborhoods <- n$neighborhood[which(n$def2.gentrifying==1)]
+def2.tract.gent <- n$tract[which(n$def2.gentrifying==1)]
+def2.tract.na <- n$tract[which(is.na(n$def2.gentrifying))]
+
+#DEFINITION 3
+def3.neighborhoods <- n$neighborhood[which(n$def3.gentrifying==1)]
+def3.tract.gent <- n$tract[which(n$def3.gentrifying==1)]
+def3.tract.na <- n$tract[which(is.na(n$def3.gentrifying))]
+
+#DEFINITION 4 - Increasing
+def4.neighborhoods <- n$neighborhood[which(n$def4.gentrifying==1)]
+def4.tract.gent <- n$tract[which(n$def4.gentrifying==1)]
+def4.tract.na <- n$tract[which(is.na(n$def4.gentrifying))]
+
+#DEFINITION 4 - Decreasing
+def4.neighborhoods2 <- n$neighborhood[which(n$def4.gentrifying2==1)]
+def4.tract.gent2 <- n$tract[which(n$def4.gentrifying2==1)]
+def4.tract.na2 <- n$tract[which(is.na(n$def4.gentrifying2))]
+
+#DEFINITION 5 - Increasing
+def5.neighborhoods <- n$neighborhood[which(n$def5.gentrifying==1)]
+def5.tract.gent <- n$tract[which(n$def5.gentrifying==1)]
+def5.tract.na <- n$tract[which(is.na(n$def5.gentrifying))]
+
+#DEFINITION 5 - Decreasing
+def5.neighborhoods2 <- n$neighborhood[which(n$def5.gentrifying2==1)]
+def5.tract.gent2 <- n$tract[which(n$def5.gentrifying2==1)]
+def5.tract.na2 <- n$tract[which(is.na(n$def5.gentrifying2))]
+
+#DEFINITION 6 - Increasing
+def6.neighborhoods <- n$neighborhood[which(n$def6.gentrifying==1)]
+def6.tract.gent <- n$tract[which(n$def6.gentrifying==1)]
+def6.tract.na <- n$tract[which(is.na(n$def6.gentrifying))]
+
+#DEFINITION 6 - Decreasing
+def6.neighborhoods2 <- n$neighborhood[which(n$def6.gentrifying2==1)]
+def6.tract.gent2 <- n$tract[which(n$def6.gentrifying2==1)]
+def6.tract.na2 <- n$tract[which(is.na(n$def6.gentrifying2))]
+
+#DEFINITION 7
+def7.neighborhoods <- n$neighborhood[which(n$def7.gentrifying==1)]
+def7.tract.gent <- n$tract[which(n$def7.gentrifying==1)]
+def7.tract.na <- n$tract[which(is.na(n$def7.gentrifying))]
+
+#DEFINITION 8
+def8.neighborhoods <- n$neighborhood[which(n$def8.gentrifying==1)]
+def8.tract.gent <- n$tract[which(n$def8.gentrifying==1)]
+def8.tract.na <- n$tract[which(is.na(n$def8.gentrifying))]
+
+#DEFINITION 9
+def9.neighborhoods <- n$neighborhood[which(n$def9.gentrifying==1)]
+def9.tract.gent <- n$tract[which(n$def9.gentrifying==1)]
+def9.tract.na <- n$tract[which(is.na(n$def9.gentrifying))]
+
+#DEFINITION 10 - Increasing 
+def10.neighborhoods <- n$neighborhood[which(n$def10.gentrifying==1)]
+def10.tract.gent <- n$tract[which(n$def10.gentrifying==1)]
+def10.tract.na <- n$tract[which(is.na(n$def10.gentrifying))]
+
+#DEFINITION 10 - Decreasing 
+def10.neighborhoods2 <- n$neighborhood[which(n$def10.gentrifying2==1)]
+def10.tract.gent2 <- n$tract[which(n$def10.gentrifying2==1)]
+def10.tract.na2 <- n$tract[which(is.na(n$def10.gentrifying2))]
+
+#DEFINITION 11 - Increasing 
+def11.neighborhoods <- n$neighborhood[which(n$def11.gentrifying==1)]
+def11.tract.gent <- n$tract[which(n$def11.gentrifying==1)]
+def11.tract.na <- n$tract[which(is.na(n$def11.gentrifying))]
+
+#DEFINITION 11 - Decreasing 
+def11.neighborhoods2 <- n$neighborhood[which(n$def11.gentrifying2==1)]
+def11.tract.gent2 <- n$tract[which(n$def11.gentrifying2==1)]
+def11.tract.na2 <- n$tract[which(is.na(n$def11.gentrifying2))]
+
+#DEFINITION 12 - Increasing 
+def12.neighborhoods <- n$neighborhood[which(n$def12.gentrifying==1)]
+def12.tract.gent <- n$tract[which(n$def12.gentrifying==1)]
+def12.tract.na <- n$tract[which(is.na(n$def12.gentrifying))]
+
+#DEFINITION 12 - Decreasing 
+def12.neighborhoods2 <- n$neighborhood[which(n$def12.gentrifying2==1)]
+def12.tract.gent2 <- n$tract[which(n$def12.gentrifying2==1)]
+def12.tract.na2 <- n$tract[which(is.na(n$def12.gentrifying2))]
+
+############################################################################################### 
+
+#CREATING THE LISTS OF LISTS 
+#Fluid Definition 
+gentrifying.locations <- list(def1.tract.gent, def1.neighborhoods, def2.tract.gent,
+                              def2.neighborhoods, def3.tract.gent, def3.neighborhoods,
+                              def4.tract.gent, def4.neighborhoods, def5.tract.gent,
+                              def5.neighborhoods, def6.tract.gent, def6.neighborhoods,
+                              def7.tract.gent, def7.neighborhoods, def8.tract.gent,
+                              def8.neighborhoods, def9.tract.gent, def9.neighborhoods,
+                              def10.tract.gent, def10.neighborhoods, def11.tract.gent,
+                              def11.neighborhoods,def12.tract.gent, def12.neighborhoods)
+names(gentrifying.locations) <- c("definition 1", "definition 1b", "definition 2", 
+                                  "definition 2b","definition 3", "definition 3b", 
+                                  "definition 4", "definition 4b","definition 5", 
+                                  "definition 5b", "definition 6", "definition 6b",
+                                  "definition 7", "definition 7b", "definition 8", 
+                                  "definition 11", "definition 11b", "definition 12",
+                                  "definition 12b")
+
+gentrifying.locations2 <- list(def4.tract.gent2, def4.neighborhoods2, def5.tract.gent2, 
+                               def5.neighborhoods2, def6.tract.gent2, def6.neighborhoods2,
+                               def10.tract.gent2, def10.neighborhoods2, def11.tract.gent2,
+                               def11.neighborhoods2, def12.tract.gent2, def12.neighborhoods2)
+names(gentrifying.locations2) <- c("definition 4", "definition 4b", "definition 5", 
+                                   "definition 5b", "definition 6", "definition 6b",
+                                   "definition 10", "definition 10b", "definition 11",
+                                   "definition 11b", "definition 12", "definition 12b")
+
+```
+
+# Definition 1
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Home Value > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def1.tract.gent)){
+  plot(pitt[pitt$NAME == def1.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def1.tract.na)){
+  plot(pitt[pitt$NAME == def1.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+    
+Gentrifying Tracts: 
+603, 809, 901, 903, 1011, 1113, 1115, 1915, 2107, 2406, 2509, 2614, 2703, 5623, 5632
+
+
+# Definition 2
+
+Variables: 
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+    
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def2.tract.gent)){
+  plot(pitt[pitt$NAME == def2.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def2.tract.na)){
+  plot(pitt[pitt$NAME == def2.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+
+Gentrifying Tracts:
+603, 809, 901, 903, 1011, 1114, 1115, 2107, 2406, 2509, 2609, 2901, 5630, 5632 
+
+        
+# Definition 3
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Home Value or Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def3.tract.gent)){
+  plot(pitt[pitt$NAME == def3.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def3.tract.na)){
+  plot(pitt[pitt$NAME == def3.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+
+Gentrifying Tracts: 603, 809, 901, 903, 1011, 1115, 2107, 2406, 2509, 2609, 5632
+
+               
+# Definition 4
+    
+### Increasing 
+
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % proportion increase in Vacancy > citywide median % increase
+
+- % increase in median Home Value > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def4.tract.gent)){
+  plot(pitt[pitt$NAME == def4.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def4.tract.na)){
+  plot(pitt[pitt$NAME == def4.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+
+Gentrifying Tracts: 901, 1011, 1113, 2107, 2614, 5632
+               
+
+### Decreasing  
+
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % proportion increase in Vacancy < citywide median % increase
+
+- % increase in median Home Value > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def4.tract.gent)){
+  plot(pitt[pitt$NAME == def4.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def4.tract.na)){
+  plot(pitt[pitt$NAME == def4.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+
+Gentrifying Tracts: 603, 809, 903, 1115, 1915, 2406, 2509, 2703, 562               
+
+
+# Definition 5
+
+### Increasing 
+
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % proportion increase in Vacancy > citywide median % increase
+
+- % increase in median Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def5.tract.gent)){
+  plot(pitt[pitt$NAME == def5.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def5.tract.na)){
+  plot(pitt[pitt$NAME == def5.tract.na[i], ], col="grey", add=T)
+}
+
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+
+Gentrifying Tracts: 901, 1011, 2107, 2609, 5630, 5632
+               
+
+### Decreasing  
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % proportion increase in Vacancy < citywide median % increase
+
+- % increase in median Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def5.tract.gent)){
+  plot(pitt[pitt$NAME == def5.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def5.tract.na)){
+  plot(pitt[pitt$NAME == def5.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+         
+Gentrifying Tracts: 603, 809, 903, 1114, 1115, 2406, 2509, 2901      
+     
+
+# Definition 6
+
+### Increasing
+
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % proportion increase in Vacancy > citywide median % increase
+
+- % increase in median Home Value or Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def6.tract.gent)){
+  plot(pitt[pitt$NAME == def6.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def6.tract.na)){
+  plot(pitt[pitt$NAME == def6.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+
+Gentrifying Tracts: 901, 1011, 2107, 2609, 5632
+
+
+### Decreasing
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % proportion increase in Vacancy < citywide median % increase
+
+- % increase in median Home Value or Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def6.tract.gent)){
+  plot(pitt[pitt$NAME == def6.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def6.tract.na)){
+  plot(pitt[pitt$NAME == def6.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+
+```
+
+Gentrifying Tracts: 603, 809, 903, 1115, 2406, 2509
+
+
+# Definition 7
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income", 
+
+- % increase in median Household Income > citywide median % increase", 
+
+- % increase in median Home Value > citywide median % increase",
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def7.tract.gent)){
+  plot(pitt[pitt$NAME == def7.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def7.tract.na)){
+  plot(pitt[pitt$NAME == def7.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+
+Gentrifying Tracts: 603, 809, 901, 903, 1011, 1113, 1115, 1915, 2107, 2406, 2614, 2703, 5632
+
+
+# Definition 8
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % increase in median Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def8.tract.gent)){
+  plot(pitt[pitt$NAME == def8.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def8.tract.na)){
+  plot(pitt[pitt$NAME == def8.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+
+Gentrifying Tracts: 603, 809, 901, 903, 1011, 1114, 1115, 2107, 2406, 5630, 5632
+
+
+# Definition 9
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % increase in median Home Value or Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def9.tract.gent)){
+  plot(pitt[pitt$NAME == def9.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def9.tract.na)){
+  plot(pitt[pitt$NAME == def9.tract.na[i], ], col="grey", add=T)
+}
+
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+
+Gentrifying Tracts: 603, 809, 901, 903, 1011, 1115, 2107, 2406, 5632
+
+
+# Definition 10
+
+### Increasing 
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % proportion increase in Vacancy > citywide median % increase
+
+- % increase in median Home Value > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def10.tract.gent)){
+  plot(pitt[pitt$NAME == def10.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def10.tract.na)){
+  plot(pitt[pitt$NAME == def10.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+
+Gentrifying Tracts: 901, 1011, 1113, 2107, 2614, 5632
+
+
+### Decreasing 
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % proportion increase in Vacancy < citywide median % increase
+
+- % increase in median Home Value > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def10.tract.gent)){
+  plot(pitt[pitt$NAME == def10.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def10.tract.na)){
+  plot(pitt[pitt$NAME == def10.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+
+Gentrifying Tracts: 603, 809, 903, 1115, 1915, 2406, 2703
+
+
+# Definition 11
+
+### Increasing 
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % proportion increase in Vacancy > citywide median % increase
+
+- % increase in median Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def11.tract.gent)){
+  plot(pitt[pitt$NAME == def11.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def11.tract.na)){
+  plot(pitt[pitt$NAME == def11.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+           
+Gentrifying Tracts: 901, 1011, 2107, 5630, 5632
+
+
+#### Decreasing 
+
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % proportion increase in Vacancy < citywide median % increase
+
+- % increase in median Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def11.tract.gent)){
+  plot(pitt[pitt$NAME == def11.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def11.tract.na)){
+  plot(pitt[pitt$NAME == def11.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+               
+Gentrifying Tracts: 603, 809, 903, 1114, 1115, 2406               
+               
+
+# Definition 12
+
+### Increasing 
+  
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % proportion increase in Vacancy > citywide median % increase
+               
+- % increase in median Home Value or Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def12.tract.gent)){
+  plot(pitt[pitt$NAME == def12.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def12.tract.na)){
+  plot(pitt[pitt$NAME == def12.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+
+Gentrifying Tracts: 901, 1011, 2107, 5632
+              
+
+### Decreasing 
+  
+Variables:
+
+- 2010 tract median Household Income < 2010 citywide median Household Income
+
+- % increase in median Household Income > citywide median % increase
+
+- % proportion increase in Vacancy < citywide median % increase
+               
+- % increase in median Home Value or Rent > citywide median % increase
+
+- % increase in proportion of Bachelor's Degree and above > citywide median % increase
+
+
+```{r, fig.height=6, fig.width=6}
+
+plot(pitt)
+plot(pitt, col="skyblue", add = TRUE)
+#color def tracts orange
+for(i in 1:length(tract.gentrifiable)){
+  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
+}
+for(i in 1:length(def12.tract.gent)){
+  plot(pitt[pitt$NAME == def12.tract.gent[i], ], col="orange", add=T)
+}
+for(i in 1:length(def12.tract.na)){
+  plot(pitt[pitt$NAME == def12.tract.na[i], ], col="grey", add=T)
+}
+#Key
+mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
+mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
+mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
+mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
+
+```
+
+Gentrifying Tracts: 603, 809, 903, 1115, 2406
