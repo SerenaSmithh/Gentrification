@@ -1,0 +1,26 @@
+---
+title: "Pittsburgh Gentrification"
+site: 
+  distill::distill_website:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_knit$set(root.dir = '/Users/Serena/Desktop/Summer Research Documents/')
+
+# Learn more about creating websites with Distill at:
+# https://rstudio.github.io/distill/website.html
+
+```
+
+![Source: Pittsburgh Travel page www.lonelyplanet.com](Images/Pittsburgh.png)
+
+### Pittsburgh History
+Pittsburgh was founded on November 27, 1758. Pittsburgh, also known as "The City of Bridges" is well known for its 3 rivers. The Allegheny River and the Monongahela River meet in the heart of downtown Pittsburgh in what is known as "The Point," and converge to create what we know as the Ohio River. This river system allowed Pittsburgh to be a hub for trade industry in resources and products like coal, timber, glass, natural gas, iron, and limestone. The city has gone from manufacturing half of the nation's steel in 1911 to becoming a leading hub in healthcare, education, technology, and financial services. 
+
+### Gentrification 
+insert information about gentrification news articles here 
+
