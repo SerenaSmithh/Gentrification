@@ -3,7 +3,7 @@ title: "Pittsburgh Gentrification"
 site: 
   distill::distill_website:
     toc: true
-    toc_depth: 3
+    toc_depth: 4
     toc_float: true
 ---
 
@@ -19,8 +19,29 @@ knitr::opts_knit$set(root.dir = '/Users/Serena/Desktop/Summer Research Documents
 ![Source: Pittsburgh Travel page www.lonelyplanet.com](Images/Pittsburgh.png)
 
 ### Pittsburgh History
-Pittsburgh was founded on November 27, 1758. Pittsburgh, also known as "The City of Bridges" is well known for its 3 rivers. The Allegheny River and the Monongahela River meet in the heart of downtown Pittsburgh in what is known as "The Point," and converge to create what we know as the Ohio River. This river system allowed Pittsburgh to be a hub for trade industry in resources and products like coal, timber, glass, natural gas, iron, and limestone. The city has gone from manufacturing half of the nation's steel in 1911 to becoming a leading hub in healthcare, education, technology, and financial services. 
+Pittsburgh was founded on November 27, 1758. Pittsburgh, also known as "The City of Bridges" is well known for its 3 rivers. The Allegheny River and the Monongahela River meet in the heart of downtown Pittsburgh in what is known as "The Point," and converge to create what we know as the Ohio River. This river system allowed Pittsburgh to be a hub for trade industry in resources and products like coal, timber, glass, natural gas, iron, and limestone. The city has gone from manufacturing half of the nation's steel in 1911 to becoming a leading hub in healthcare, education, technology, and financial services ("About Pittsubrgh"). 
+
+In Pittsburgh, post great depression, mortgages were not awarded to all. Redlining occured, which consisted of banks encouraging white people and families to buy homes that were located away from black communities. Additionally, the black communities weren’t awarded mortgages, and this descrimination was supported by governmental segregation policies at the federal level. This hisory and these policies helped to set the basis for displacement and gentrification (Harrell).
+
 
 ### Gentrification 
-insert information about gentrification news articles here 
+In 2019, the National Community Reinvestment Coalition released a study conducted across the years 2000-2013, which found that Pittsburgh was the 8th most gentrified city in the country. Through the 13 year period, and based on Freeman’s method for defining gentrification, it was found that 20% of the tracts qualified as Pittsburgh areas had gentrified making it the 8th most gentrified city in the country as of 2013 (NCRC, 2019). The Neighborhoods that were determined to be the most affected were Downtown, Laurenceville, and Mexican War Streets (NCRC, 2019).
+
+The Penn Plaza Apartments were arguably the most well known instance of displacement due to gentrification in the city. In 2015, the residents of the apartment building were all sent letters that were slipped under their front door which told them that their leases would not be renewed, and that they were to be gone in 90 days. Many of these residents were low income, elderly, and black. The repercussions from this displacement were great, causing anxiety, loss of community, and many of the individuals were displaced to other low income areas around the city. The apartments were demolished in order to create newer, more efficient apartments that would attract a higher socioeconomic demographic (Krauss). 
+
+
+
+#### Citations
+
+“About Pittsburgh.” City of Pittsburgh., https://pittsburghpa.gov/pittsburgh/pgh-about. 
+
+Harrell, Donovan. “You Don't Have to Go Far to Find Gentrification in Pittsburgh.” University Times , University of Pittsburgh, 11 Mar. 2021, https://www.utimes.pitt.edu/news/you-don-t-have-go-far. 
+
+Krauss, Margaret J. “News of Penn Plaza's Redevelopment Shook Pittsburgh. What Did the City Know before It Happened?Ma.” What Did The City Know Before It Happened? , 90.5 WESA, 30 Nov. 2020, https://www.wesa.fm/development-transportation/2020-11-23/news-of-penn-plazas-redevelopment-shook-pittsburgh-what-did-the-city-know-before-it-happened. 
+
+“Pittsburgh Travel.” Lonely Planet, 8 Sept. 2019, https://www.lonelyplanet.com/usa/pennsylvania/pittsburgh. 
+
+Shifting Neighborhoods: Gentrification and Cultural Displacement in American Cities. NCRC. https://ncrc.org/gentrification/. Accessed 9 June 2021.
+
+
 

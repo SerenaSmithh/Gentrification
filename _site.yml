@@ -7,20 +7,19 @@ navbar:
   right:
     - text: "Home"
       href: index.html
-    - text: "About"
-      href: about.html
+    - text: "Project Overview"
+      href: overview.html
     - text: "Gentrification Maps"
       menu:
       - text: "Interactive Maps"
         href: figures.html
       - text: "Static Maps"
         href: figures2.html
-    - text: "Project Overview"
-      href: overview.html
-    - text: "Citations"
-      href: citations.html
+    - text: "About"
+      href: about.html
+
 output: 
   distill::distill_article:
     toc: true
-    toc_depth: 3
+    toc_depth: 4
     toc_float: true

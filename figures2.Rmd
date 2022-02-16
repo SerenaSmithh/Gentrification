@@ -261,8 +261,6 @@ Variables:
 
 plot(pitt)
 plot(pitt, col="skyblue", add = TRUE)
-length(def2.tract.gent)
-length(def2.tract.na)
 #color def tracts orange
 for(i in 1:length(tract.gentrifiable)){
   plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
@@ -309,8 +307,6 @@ Variables:
 
 plot(pitt)
 plot(pitt, col="skyblue", add = TRUE)
-length(def3.tract.gent.both)
-length(def3.tract.na.both)
 #color def tracts orange
 for(i in 1:length(tract.gentrifiable)){
   plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
@@ -350,8 +346,6 @@ Variables:
 
 plot(pitt)
 plot(pitt, col="skyblue", add = TRUE)
-length(def3.tract.gent.or)
-length(def3.tract.na.or)
 #color def tracts orange
 for(i in 1:length(tract.gentrifiable)){
   plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
@@ -381,51 +375,6 @@ Gentrifying Tracts:  603, 809, 901, 903, 1011, 1113, 1114, 1115, 1915, 2107, 240
 
 
 ## Definition 4
-### - Vacancy Increasing 
-
-
-Variables:
-
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % proportion increase in Vacancy > citywide median % increase
-
-- % increase in median Home Value > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
-
-
-```{r, fig.height=6, fig.width=12}
-
-plot(pitt)
-plot(pitt, col="skyblue", add = TRUE)
-#color def tracts orange
-for(i in 1:length(tract.gentrifiable)){
-  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
-}
-for(i in 1:length(def4.tract.gent.i)){
-  plot(pitt[pitt$NAME == def4.tract.gent.i[i], ], col="orange", add=T)
-}
-for(i in 1:length(def4.tract.na.i)){
-  plot(pitt[pitt$NAME == def4.tract.na.i[i], ], col="grey", add=T)
-}
-mtext("Definition 4", side = 3, adj = 0, line = 2)
-#pgh and general pgh area
-mtext("Pittsburgh Area", side = 3, adj = 0, line = 1, cex = 0.85)
-mtext("2019", side = 3, adj = 0, line = 0, cex = 0.85)
-#Key
-mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
-mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
-mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
-mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
-
-```
-
-Gentrifying Tracts: 901, 1011, 1113, 2107, 2614, 5632
-               
-
-### - Vacancy Decreasing  
-
 
 Variables:
 
@@ -442,8 +391,6 @@ Variables:
 
 plot(pitt)
 plot(pitt, col="skyblue", add = TRUE)
-length(def4.tract.gent.d)
-length(def4.tract.na.d)
 #color def tracts orange
 for(i in 1:length(tract.gentrifiable)){
   plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
@@ -472,52 +419,6 @@ Gentrifying Tracts: 603, 809, 903, 1115, 1915, 2406, 2509, 2703, 5623
 
 
 ## Definition 5
-### - Vacancy Increasing 
-
-
-Variables:
-
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % proportion increase in Vacancy > citywide median % increase
-
-- % increase in median Rent > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
-
-
-```{r, fig.height=6, fig.width=12}
-
-plot(pitt)
-plot(pitt, col="skyblue", add = TRUE)
-length(def5.tract.gent.i)
-length(def5.tract.na.i)
-#color def tracts orange
-for(i in 1:length(tract.gentrifiable)){
-  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
-}
-for(i in 1:length(def5.tract.gent.i)){
-  plot(pitt[pitt$NAME == def5.tract.gent.i[i], ], col="orange", add=T)
-}
-for(i in 1:length(def5.tract.na.i)){
-  plot(pitt[pitt$NAME == def5.tract.na.i[i], ], col="grey", add=T)
-}
-mtext("Definition 5", side = 3, adj = 0, line = 2)
-#pgh and general pgh area
-mtext("Pittsburgh Area", side = 3, adj = 0, line = 1, cex = 0.85)
-mtext("2019", side = 3, adj = 0, line = 0, cex = 0.85)
-#Key
-mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
-mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
-mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
-mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
-
-```
-
-Gentrifying Tracts: 901, 1011, 2107, 2609, 5630, 5632
-               
-
-### - Vacancy Decreasing  
 
 Variables:
 
@@ -534,8 +435,6 @@ Variables:
 
 plot(pitt)
 plot(pitt, col="skyblue", add = TRUE)
-length(def5.tract.gent.d)
-length(def5.tract.na.d)
 #color def tracts orange
 for(i in 1:length(tract.gentrifiable)){
   plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
@@ -564,50 +463,8 @@ Gentrifying Tracts: 603, 809, 903, 1114, 1115, 2406, 2509, 2901
 
 
 ## Definition 6
-### - Vacancy Increasing | Home Value & Rent 
 
-
-Variables:
-
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % proportion increase in Vacancy > citywide median % increase
-
-- % increase in median Home Value & Rent > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
-
-
-```{r, fig.height=6, fig.width=12}
-
-plot(pitt)
-plot(pitt, col="skyblue", add = TRUE)
-#color def tracts orange
-for(i in 1:length(tract.gentrifiable)){
-  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
-}
-for(i in 1:length(def6.tract.gent.i.both)){
-  plot(pitt[pitt$NAME == def6.tract.gent.i.both[i], ], col="orange", add=T)
-}
-for(i in 1:length(def6.tract.na.i.both)){
-  plot(pitt[pitt$NAME == def6.tract.na.i.both[i], ], col="grey", add=T)
-}
-mtext("Definition 6", side = 3, adj = 0, line = 2)
-#pgh and general pgh area
-mtext("Pittsburgh Area", side = 3, adj = 0, line = 1, cex = 0.85)
-mtext("2019", side = 3, adj = 0, line = 0, cex = 0.85)
-#Key
-mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
-mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
-mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
-mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
-
-```
-
-Gentrifying Tracts: 901, 1011, 2107, 2609, 5632
-
-
-### - Vacancy Decreasing | Home Value & Rent 
+### - Home Value & Rent 
 
 
 Variables:
@@ -625,8 +482,6 @@ Variables:
 
 plot(pitt)
 plot(pitt, col="skyblue", add = TRUE)
-length(def6.tract.gent.d.both)
-length(def6.tract.na.d.both)
 #color def tracts orange
 for(i in 1:length(tract.gentrifiable)){
   plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
@@ -653,48 +508,7 @@ mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex 
 Gentrifying Tracts: 603, 809, 903, 1115, 2406, 2509
 
 
-### - Vacancy Increasing | Home Value or Rent
-
-Variables:
-
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % proportion increase in Vacancy > citywide median % increase
-
-- % increase in median Home Value or Rent > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
-
-
-```{r, fig.height=6, fig.width=12}
-
-plot(pitt)
-plot(pitt, col="skyblue", add = TRUE)
-#color def tracts orange
-for(i in 1:length(tract.gentrifiable)){
-  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
-}
-for(i in 1:length(def6.tract.gent.i.or)){
-  plot(pitt[pitt$NAME == def6.tract.gent.i.or[i], ], col="orange", add=T)
-}
-for(i in 1:length(def6.tract.na.i.or)){
-  plot(pitt[pitt$NAME == def6.tract.na.i.or[i], ], col="grey", add=T)
-}
-mtext("Definition 6", side = 3, adj = 0, line = 2)
-#pgh and general pgh area
-mtext("Pittsburgh Area", side = 3, adj = 0, line = 1, cex = 0.85)
-mtext("2019", side = 3, adj = 0, line = 0, cex = 0.85)
-#Key
-mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
-mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
-mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
-mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
-
-```
-
-Gentrifying Tracts: 901, 1011, 1113, 2107, 2609, 2614, 5630, 5632
-
-### - Vacancy Decreasing | Home Value or Rent
+### - Home Value or Rent
 
 Variables:
 
@@ -755,8 +569,6 @@ Variables:
 
 plot(pitt)
 plot(pitt, col="skyblue", add = TRUE)
-length(def7.tract.gent)
-length(def7.tract.na)
 #color def tracts orange
 for(i in 1:length(tract.gentrifiable)){
   plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
@@ -847,8 +659,6 @@ Variables:
 
 plot(pitt)
 plot(pitt, col="skyblue", add = TRUE)
-length(def9.tract.gent.both)
-length(def9.tract.na.both)
 #color def tracts orange
 for(i in 1:length(tract.gentrifiable)){
   plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
@@ -891,8 +701,6 @@ Variables:
 
 plot(pitt)
 plot(pitt, col="skyblue", add = TRUE)
-length(def9.tract.gent.or)
-length(def9.tract.na.or)
 #color def tracts orange
 for(i in 1:length(tract.gentrifiable)){
   plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
@@ -922,54 +730,6 @@ Gentrifying Tracts: 603, 809, 901, 903, 1011, 1113, 1114, 1115, 1915, 2107, 2406
 
 ## Definition 10
 
-### - Vacancy Increasing 
-
-Variables:
-
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % increase in median Household Income > citywide median % increase
-
-- % proportion increase in Vacancy > citywide median % increase
-
-- % increase in median Home Value > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
-
-
-```{r, fig.height=6, fig.width=12}
-
-plot(pitt)
-plot(pitt, col="skyblue", add = TRUE)
-length(def10.tract.gent.i)
-length(def10.tract.na.i)
-#color def tracts orange
-for(i in 1:length(tract.gentrifiable)){
-  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
-}
-for(i in 1:length(def10.tract.gent.i)){
-  plot(pitt[pitt$NAME == def10.tract.gent.i[i], ], col="orange", add=T)
-}
-for(i in 1:length(def10.tract.na.i)){
-  plot(pitt[pitt$NAME == def10.tract.na.i[i], ], col="grey", add=T)
-}
-mtext("Definition 10", side = 3, adj = 0, line = 2)
-#pgh and general pgh area
-mtext("Pittsburgh Area", side = 3, adj = 0, line = 1, cex = 0.85)
-mtext("2019", side = 3, adj = 0, line = 0, cex = 0.85)
-#Key
-mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
-mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
-mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
-mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
-
-```
-
-Gentrifying Tracts: 901, 1011, 1113, 2107, 2614, 5632
-
-
-### - Vacancy Decreasing 
-
 Variables:
 
 - 2010 tract median Household Income < 2010 citywide median Household Income
@@ -987,8 +747,6 @@ Variables:
 
 plot(pitt)
 plot(pitt, col="skyblue", add = TRUE)
-length(def10.tract.gent.d)
-length(def10.tract.na.d)
 #color def tracts orange
 for(i in 1:length(tract.gentrifiable)){
   plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
@@ -1018,53 +776,6 @@ Gentrifying Tracts: 603, 809, 903, 1115, 1915, 2406, 2703
 
 ## Definition 11
 
-### - Vacancy Increasing 
-
-Variables:
-
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % increase in median Household Income > citywide median % increase
-
-- % proportion increase in Vacancy > citywide median % increase
-
-- % increase in median Rent > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
-
-
-```{r, fig.height=6, fig.width=12}
-
-plot(pitt)
-plot(pitt, col="skyblue", add = TRUE)
-length(def11.tract.gent.i)
-length(def11.tract.na.i)
-#color def tracts orange
-for(i in 1:length(tract.gentrifiable)){
-  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
-}
-for(i in 1:length(def11.tract.gent.i)){
-  plot(pitt[pitt$NAME == def11.tract.gent.i[i], ], col="orange", add=T)
-}
-for(i in 1:length(def11.tract.na.i)){
-  plot(pitt[pitt$NAME == def11.tract.na.i[i], ], col="grey", add=T)
-}
-mtext("Definition 11", side = 3, adj = 0, line = 2)
-#pgh and general pgh area
-mtext("Pittsburgh Area", side = 3, adj = 0, line = 1, cex = 0.85)
-mtext("2019", side = 3, adj = 0, line = 0, cex = 0.85)
-#Key
-mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
-mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
-mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
-mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
-
-```
-           
-Gentrifying Tracts: 901, 1011, 2107, 5630, 5632
-
-
-### - Vacancy Decreasing 
 
 Variables:
 
@@ -1083,8 +794,6 @@ Variables:
 
 plot(pitt)
 plot(pitt, col="skyblue", add = TRUE)
-length(def11.tract.gent.d)
-length(def11.tract.na.d)
 #color def tracts orange
 for(i in 1:length(tract.gentrifiable)){
   plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
@@ -1110,61 +819,9 @@ mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex 
 Gentrifying Tracts: 603, 809, 903, 1114, 1115, 2406               
                
 
-
-
-
-
-
-
 ## Definition 12
 
-### - Vacancy Increasing | Home Value & Rent 
-  
-Variables:
-
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % increase in median Household Income > citywide median % increase
-
-- % proportion increase in Vacancy > citywide median % increase
-               
-- % increase in median Home Value & Rent > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
-
-
-```{r, fig.height=6, fig.width=12}
-
-plot(pitt)
-plot(pitt, col="skyblue", add = TRUE)
-length(def12.tract.gent.i.both)
-length(def12.tract.na.i.both)
-#color def tracts orange
-for(i in 1:length(tract.gentrifiable)){
-  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
-}
-for(i in 1:length(def12.tract.gent.i.both)){
-  plot(pitt[pitt$NAME == def12.tract.gent.i.both[i], ], col="orange", add=T)
-}
-for(i in 1:length(def12.tract.na.i.both)){
-  plot(pitt[pitt$NAME == def12.tract.na.i.both[i], ], col="grey", add=T)
-}
-mtext("Definition 12", side = 3, adj = 0, line = 2)
-#pgh and general pgh area
-mtext("Pittsurgh Area", side = 3, adj = 0, line = 1, cex = 0.85)
-mtext("2019", side = 3, adj = 0, line = 0, cex = 0.85)
-#Key
-mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
-mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
-mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
-mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
-
-```
-
-Gentrifying Tracts: 901, 1011, 2107, 5632
-
-
-### - Vacancy Decreasing | Home Value & Rent 
+### - Home Value & Rent 
   
 Variables:
 
@@ -1183,8 +840,6 @@ Variables:
 
 plot(pitt)
 plot(pitt, col="skyblue", add = TRUE)
-length(def12.tract.gent.d.both)
-length(def12.tract.na.d.both)
 #color def tracts orange
 for(i in 1:length(tract.gentrifiable)){
   plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
@@ -1210,53 +865,8 @@ mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex 
 Gentrifying Tracts: 603, 809, 903, 1115, 2406
               
 
-### - Vacancy Increasing | Home Value or Rent 
 
-Variables:
-
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % increase in median Household Income > citywide median % increase
-
-- % proportion increase in Vacancy > citywide median % increase
-               
-- % increase in median Home Value or Rent > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
-
-
-```{r, fig.height=6, fig.width=12}
-
-plot(pitt)
-plot(pitt, col="skyblue", add = TRUE)
-length(def12.tract.gent.i.or)
-length(def12.tract.na.i.or)
-#color def tracts orange
-for(i in 1:length(tract.gentrifiable)){
-  plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)
-}
-for(i in 1:length(def12.tract.gent.i.or)){
-  plot(pitt[pitt$NAME == def12.tract.gent.i.or[i], ], col="orange", add=T)
-}
-for(i in 1:length(def12.tract.na.i.or)){
-  plot(pitt[pitt$NAME == def12.tract.na.i.or[i], ], col="grey", add=T)
-}
-mtext("Definition 12", side = 3, adj = 0, line = 2)
-#pgh and general pgh area
-mtext("Pittsurgh Area", side = 3, adj = 0, line = 1, cex = 0.85)
-mtext("2019", side = 3, adj = 0, line = 0, cex = 0.85)
-#Key
-mtext("Gentrifying", side = 1, adj = 0, line = 1, col = "orange", cex = 0.85)
-mtext("Gentrifiable Non-Gentrifying", side = 1, adj = 0, line = 2, col = "gray 44", cex = 0.85)
-mtext("Non-Gentrifying", side = 1, adj = 0, line = 3, col = "deepskyblue", cex = 0.85)
-mtext("Tract Data Missing", side = 1, adj = 0, line = 0, col = "dark grey", cex = 0.85)
-
-```
-
-Gentrifying Tracts: 901, 1011, 1113, 2107, 2614, 5630, 5632
-
-
-### - Vacancy Decreasing | Home Value or Rent 
+### - Home Value or Rent 
   
 Variables:
 
@@ -1275,8 +885,6 @@ Variables:
 
 plot(pitt)
 plot(pitt, col="skyblue", add = TRUE)
-length(def12.tract.gent.d.or)
-length(def12.tract.na.d.or)
 #color def tracts orange
 for(i in 1:length(tract.gentrifiable)){
   plot(pitt[pitt$NAME == tract.gentrifiable[i], ], col="dark grey", add=T)

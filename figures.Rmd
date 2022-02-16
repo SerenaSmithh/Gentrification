@@ -360,47 +360,6 @@ Gentrifying Tracts:  603, 809, 901, 903, 1011, 1113, 1114, 1115, 1915, 2107, 240
 
 
 ## Definition 4
-    
-### - Vacancy Increasing 
-
-
-Variables:
-
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % proportion increase in Vacancy > citywide median % increase
-
-- % increase in median Home Value > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
-
-
-```{r, fig.height=6, fig.width=12}
-
-my.col <- rep("slategrey", 137)
-my.col[pitt$def4.gentrifying == 0] <- "skyblue"
-my.col[pitt$gentrifiable == 1] <- "powderblue"
-my.col[pitt$def4.gentrifying == 1] <- "orange"
-def4.int <- leaflet(pitt) %>%
-  addPolygons(
-    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
-    labelOptions= labelOptions(direction = 'auto'),
-    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
-  ) %>%
-  addLegend(
-    title = "Definition 4",
-    position = c("bottomleft"),
-    colors = c("orange", "skyblue", "powderblue", "slategrey"),
-    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
-  )
-def4.int
-
-```
-
-Gentrifying Tracts: 901, 1011, 1113, 2107, 2614, 5632
-               
-
-### - Vacancy Decreasing  
 
 
 Variables:
@@ -443,47 +402,6 @@ Gentrifying Tracts: 603, 809, 903, 1115, 1915, 2406, 2509, 2703, 5623
 
 ## Definition 5
 
-### - Vacancy Increasing 
-
-
-Variables:
-
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % proportion increase in Vacancy > citywide median % increase
-
-- % increase in median Rent > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
-
-
-```{r, fig.height=6, fig.width=12}
-
-my.col <- rep("slategrey", 137)
-my.col[pitt$def5.gentrifying == 0] <- "skyblue"
-my.col[pitt$gentrifiable == 1] <- "powderblue"
-my.col[pitt$def5.gentrifying == 1] <- "orange"
-def5.int <- leaflet(pitt) %>%
-  addPolygons(
-    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
-    labelOptions= labelOptions(direction = 'auto'),
-    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
-  ) %>%
-  addLegend(
-    title = "Definition 5",
-    position = c("bottomleft"),
-    colors = c("orange", "skyblue", "powderblue", "slategrey"),
-    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
-  )
-def5.int
-
-```
-
-Gentrifying Tracts: 901, 1011, 2107, 2609, 5630, 5632
-               
-
-### - Vacancy Decreasing  
-
 Variables:
 
 - 2010 tract median Household Income < 2010 citywide median Household Income
@@ -524,46 +442,7 @@ Gentrifying Tracts: 603, 809, 903, 1114, 1115, 2406, 2509, 2901
 
 ## Definition 6
 
-### - Vacancy Increasing | Home Value & Rent 
-
-
-Variables:
-
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % proportion increase in Vacancy > citywide median % increase
-
-- % increase in median Home Value & Rent > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
-
-
-```{r, fig.height=6, fig.width=12}
-
-my.col <- rep("slategrey", 137)
-my.col[pitt$def6.gentrifying.both == 0] <- "skyblue"
-my.col[pitt$gentrifiable == 1] <- "powderblue"
-my.col[pitt$def6.gentrifying.both == 1] <- "orange"
-def6.int <- leaflet(pitt) %>%
-  addPolygons(
-    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
-    labelOptions= labelOptions(direction = 'auto'),
-    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
-  ) %>%
-  addLegend(
-    title = "Definition 6",
-    position = c("bottomleft"),
-    colors = c("orange", "skyblue", "powderblue", "slategrey"),
-    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
-  )
-def6.int
-
-```
-
-Gentrifying Tracts: 901, 1011, 2107, 2609, 5632
-
-
-### - Vacancy Decreasing | Home Value & Rent 
+### - Home Value & Rent 
 
 
 Variables:
@@ -602,44 +481,7 @@ def6.int
 Gentrifying Tracts: 603, 809, 903, 1115, 2406, 2509
 
 
-### - Vacancy Increasing | Home Value or Rent
-
-Variables:
-
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % proportion increase in Vacancy > citywide median % increase
-
-- % increase in median Home Value or Rent > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
-
-
-```{r, fig.height=6, fig.width=12}
-
-my.col <- rep("slategrey", 137)
-my.col[pitt$def6.gentrifying.or == 0] <- "skyblue"
-my.col[pitt$gentrifiable == 1] <- "powderblue"
-my.col[pitt$def6.gentrifying.or == 1] <- "orange"
-def6.int <- leaflet(pitt) %>%
-  addPolygons(
-    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
-    labelOptions= labelOptions(direction = 'auto'),
-    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
-  ) %>%
-  addLegend(
-    title = "Definition 6",
-    position = c("bottomleft"),
-    colors = c("orange", "skyblue", "powderblue", "slategrey"),
-    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
-  )
-def6.int
-
-```
-
-Gentrifying Tracts: 901, 1011, 1113, 2107, 2609, 2614, 5630, 5632
-
-### - Vacancy Decreasing | Home Value or Rent
+### - Home Value or Rent
 
 Variables:
 
@@ -841,47 +683,6 @@ Gentrifying Tracts: 603, 809, 901, 903, 1011, 1113, 1114, 1115, 1915, 2107, 2406
 
 ## Definition 10
 
-### - Vacancy Increasing 
-
-Variables:
-
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % increase in median Household Income > citywide median % increase
-
-- % proportion increase in Vacancy > citywide median % increase
-
-- % increase in median Home Value > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
-
-
-```{r, fig.height=6, fig.width=12}
-
-my.col <- rep("slategrey", 137)
-my.col[pitt$def10.gentrifying == 0] <- "skyblue"
-my.col[pitt$gentrifiable == 1] <- "powderblue"
-my.col[pitt$def10.gentrifying == 1] <- "orange"
-def10.int <- leaflet(pitt) %>%
-  addPolygons(
-    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
-    labelOptions= labelOptions(direction = 'auto'),
-    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
-  ) %>%
-  addLegend(
-    title = "Definition 10",
-    position = c("bottomleft"),
-    colors = c("orange", "skyblue", "powderblue", "slategrey"),
-    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
-  )
-def10.int
-
-```
-
-Gentrifying Tracts: 901, 1011, 1113, 2107, 2614, 5632
-
-
-### - Vacancy Decreasing 
 
 Variables:
 
@@ -925,47 +726,6 @@ Gentrifying Tracts: 603, 809, 903, 1115, 1915, 2406, 2703
 
 ## Definition 11
 
-### - Vacancy Increasing 
-
-Variables:
-
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % increase in median Household Income > citywide median % increase
-
-- % proportion increase in Vacancy > citywide median % increase
-
-- % increase in median Rent > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
-
-
-```{r, fig.height=6, fig.width=12}
-
-my.col <- rep("slategrey", 137)
-my.col[pitt$def11.gentrifying == 0] <- "skyblue"
-my.col[pitt$gentrifiable == 1] <- "powderblue"
-my.col[pitt$def11.gentrifying == 1] <- "orange"
-def11.int <- leaflet(pitt) %>%
-  addPolygons(
-    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
-    labelOptions= labelOptions(direction = 'auto'),
-    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
-  ) %>%
-  addLegend(
-    title = "Definition 11",
-    position = c("bottomleft"),
-    colors = c("orange", "skyblue", "powderblue", "slategrey"),
-    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
-  )
-def11.int
-
-```
-           
-Gentrifying Tracts: 901, 1011, 2107, 5630, 5632
-
-
-### - Vacancy Decreasing 
 
 Variables:
 
@@ -1013,47 +773,8 @@ Gentrifying Tracts: 603, 809, 903, 1114, 1115, 2406
 
 ## Definition 12
 
-### - Vacancy Increasing | Home Value & Rent 
-  
-Variables:
 
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % increase in median Household Income > citywide median % increase
-
-- % proportion increase in Vacancy > citywide median % increase
-               
-- % increase in median Home Value & Rent > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
-
-
-```{r, fig.height=6, fig.width=12}
-
-my.col <- rep("slategrey", 137)
-my.col[pitt$def12.gentrifying.both == 0] <- "skyblue"
-my.col[pitt$gentrifiable == 1] <- "powderblue"
-my.col[pitt$def12.gentrifying.both == 1] <- "orange"
-def12.int <- leaflet(pitt) %>%
-  addPolygons(
-    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
-    labelOptions= labelOptions(direction = 'auto'),
-    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
-  ) %>%
-  addLegend(
-    title = "Definition 12", 
-    position = c("bottomleft"),
-    colors = c("orange", "skyblue", "powderblue", "slategrey"),
-    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
-  )
-def12.int
-
-```
-
-Gentrifying Tracts: 901, 1011, 2107, 5632
-
-
-### - Vacancy Decreasing | Home Value & Rent 
+### - Home Value & Rent 
   
 Variables:
 
@@ -1091,49 +812,9 @@ def12.int
 ```
 
 Gentrifying Tracts: 603, 809, 903, 1115, 2406
-              
-
-### - Vacancy Increasing | Home Value or Rent 
-
-Variables:
-
-- 2010 tract median Household Income < 2010 citywide median Household Income
-
-- % increase in median Household Income > citywide median % increase
-
-- % proportion increase in Vacancy > citywide median % increase
-               
-- % increase in median Home Value or Rent > citywide median % increase
-
-- % increase in proportion of Bachelor's Degree and above > citywide median % increase
 
 
-```{r, fig.height=6, fig.width=12}
-
-my.col <- rep("slategrey", 137)
-my.col[pitt$def12.gentrifying.or == 0] <- "skyblue"
-my.col[pitt$gentrifiable == 1] <- "powderblue"
-my.col[pitt$def12.gentrifying.or == 1] <- "orange"
-def12.int <- leaflet(pitt) %>%
-  addPolygons(
-    label=paste("Tract:", pitt$NAME, "Neighborhood:", pitt$neighborhood),
-    labelOptions= labelOptions(direction = 'auto'),
-    weight=0.5, color = "black", opacity=1, fillOpacity = 0.7, fillColor = my.col
-  ) %>%
-  addLegend(
-    title = "Definition 12", 
-    position = c("bottomleft"),
-    colors = c("orange", "skyblue", "powderblue", "slategrey"),
-    labels = c("Gentrifying", "Non-Gentrifying", "Gentrifiable Non-Gentrifying", "Tract Data Missing")
-  )
-def12.int
-
-```
-
-Gentrifying Tracts: 901, 1011, 1113, 2107, 2614, 5630, 5632
-
-
-### - Vacancy Decreasing | Home Value or Rent 
+### - Home Value or Rent 
   
 Variables:
 
